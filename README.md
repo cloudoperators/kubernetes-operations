@@ -1,5 +1,7 @@
 # k8s-monitoring
 
+[![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/k8s-monitoring)](https://api.reuse.software/info/github.com/cloudoperators/k8s-monitoring)
+
 ## About this project
 
 A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective monitoring of Kubernetes.
