@@ -4,7 +4,7 @@
 
 ## About this project
 
-A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective monitoring of Kubernetes.
+A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
 
 Contents
 
