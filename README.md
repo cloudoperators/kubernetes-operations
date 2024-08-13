@@ -1,4 +1,4 @@
-# k8s-monitoring
+# kubernetes-operations
 
 [![REUSE status](https://api.reuse.software/badge/github.com/cloudoperators/k8s-monitoring)](https://api.reuse.software/info/github.com/cloudoperators/k8s-monitoring)
 
