@@ -6,12 +6,25 @@
 
 A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
 
-Contents
+# Content
 
-	prometheus-rules/:   Alerting rules for proactive monitoring and issue detection.
-	dashboards/:         Plutono dashboards for visualizing key metrics and cluster health.
-	playbooks/:          Step-by-step instructions, checklists and templates for troubleshooting.
+The content is structured as follows:
 
+```
+kubernetes-operations
+    │
+    ├── playbooks/              Step-by-step instructions, checklists and templates for troubleshooting individual alerts.
+    │                            
+    └── charts/
+         │
+         ├── aggregations       Prometheus aggregation rules for kubernetes.
+         │
+         ├── alerts             Prometheus alerts for kubernetes.
+         │
+         ├── dashboards         Plutono dashboards for visualizing key metrics and cluster health.
+         │
+         └── Chart.yaml         Helm chart manifest. Increase the version number when making changes.
+```
 
 ## Requirements and Setup
 
@@ -31,3 +44,31 @@ We as members, contributors, and leaders pledge to make participation in our com
 ## Licensing
 
 Copyright 2024 SAP SE or an SAP affiliate company and k8s-monitoring contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/k8s-monitoring).
+
+
+# Kubernetes operations
+
+This  packages resources and configuration for Kubernetes operations.
+
+# Content
+
+The content is structured as follows:
+
+```
+kubernetes-operations
+    ├── aggregations            Prometheus aggregation rules for kubernetes.
+    │
+    ├── alerts                  Prometheus alerts for kubernetes.
+    │
+    ├── playbooks               Step-by-step instructions, checklists and templates for troubleshooting individual alerts.
+    │ 
+    ├── dashboards              Plutono dashboards for visualizing key metrics and cluster health.
+    │
+    └── Chart.yaml              Helm chart manifest. Increase the version number when making changes.
+```
+
+# Contributing
+
+If you are contributing to the `kubernetes-operations` chart, update the associated content and increment the version in the `Chart.yaml`.  
+
+If you use this chart with the [kube-monitoring](https://github.com/cloudoperators/greenhouse-extensions/tree/main/kube-monitoring) Plugin from [Greenhouse](https://github.com/cloudoperators/greenhouse), update the version in the [Chart.yaml](https://github.com/cloudoperators/greenhouse-extensions/blob/main/kube-monitoring/charts/Chart.yaml) as well as the [plugindefinition](https://github.com/cloudoperators/greenhouse-extensions/blob/main/kube-monitoring/plugindefinition.yaml) versions of `kube-monitoring` so that the operations platform can perform the rollout.
