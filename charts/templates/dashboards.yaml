@@ -1,12 +1,12 @@
 {{ $root := . }}
-{{- range $path, $bytes := .Files.Glob "templates/dashboards/*.json" }}
+{{- range $path, $bytes := .Files.Glob "dashboards/*.json" }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ printf "%s-%s" $root.Release.Name $path | replace "/" "-" | trunc 63 }}
   labels:
-    plutono-dashboard: "true"
+{{ include "kubernetes-operations.dashboardSelectorLabels" (list $path $root) | indent 4 }} 
 {{ include "kubernetes-operations.labels" (list $path $root) | indent 4 }}
 data:
 {{ printf "%s: |-" $path | replace "/" "-" | indent 2 }}

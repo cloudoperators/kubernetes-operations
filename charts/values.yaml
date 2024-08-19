@@ -32,3 +32,12 @@ prometheusRules:
   disabled: {}
   # KubernetesApiServerDown: true
   # KubeletDown: true
+
+## Create default dashboards for monitoring the cluster
+##
+dashboards:
+
+  ## Label selectors for the Plutono dashboards to be picked up by Plutono.
+  plutonoSelectors:
+    - name: plutono-datasource
+      value: '"true"'
