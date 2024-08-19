@@ -13,7 +13,7 @@ The content is structured as follows:
 ```
 kubernetes-operations
     │
-    ├── playbooks/              Step-by-step instructions, checklists and templates for troubleshooting individual alerts.
+    ├── playbooks/              Step-by-step instructions for troubleshooting.
     │                            
     └── charts/
          │
@@ -21,9 +21,9 @@ kubernetes-operations
          │
          ├── alerts             Prometheus alerts for kubernetes.
          │
-         ├── dashboards         Plutono dashboards for visualizing key metrics and cluster health.
+         ├── dashboards         Plutono dashboards for visualizing key metrics.
          │
-         └── Chart.yaml         Helm chart manifest. Increase the version number when making changes.
+         └── Chart.yaml         Helm chart manifest.
 ```
 
 ## Requirements and Setup
