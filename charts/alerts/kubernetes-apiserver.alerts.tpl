@@ -1,6 +1,7 @@
 groups:
 - name: kubernetes-apiserver
   rules:
+{{- if not (.Values.prometheusRules.disabled.KubernetesApiServerDown | default false) }}
   - alert: KubernetesApiServerDown
     expr: absent(up{job="apiserver"}) or up{job=~".*apiserver"} == 0
     for: {{ dig "KubernetesApiServerDown" "for" "15m" .Values.prometheusRules }}
@@ -13,7 +14,9 @@ groups:
     annotations:
       description: Kubernetes API server has disappeared from Prometheus target discovery.
       summary: Target disappeared from Prometheus target discovery.
+{{- end }}
 
+{{- if not (.Values.prometheusRules.disabled.KubernetesApiServerLatency | default false) }}
   - alert: KubernetesApiServerLatency
     expr: |
       histogram_quantile(
@@ -34,7 +37,9 @@ groups:
     annotations:
       description: ApiServerLatency for `{{`{{ $labels.resource }}`}}` is higher then usual for the past {{ dig "KubernetesApiServerDown" "for" "30m" .Values.prometheusRules }} minutes. Inspect apiserver logs for the root cause.
       summary: ApiServerLatency is unusually high.
+{{- end }}
 
+{{- if not (.Values.prometheusRules.disabled.KubeAggregatedAPIDown | default false) }}
   - alert: KubeAggregatedAPIDown
     expr: |
       (
@@ -56,3 +61,4 @@ groups:
     annotations:
       description: Kubernetes aggregated API `{{`{{ $labels.namespace }}`}}/{{`{{ $labels.name `}}`}}` has been only `{{`{{ $value | humanizePercentage }}`}}` available over the last {{ dig "KubeAggregatedAPIDown" "for" "5m" .Values.prometheusRules }} . Run `kubectl get apiservice | grep -v Local` and confirm the services of aggregated APIs have active endpoints.
       summary: Kubernetes aggregated API is down.
+{{- end }}

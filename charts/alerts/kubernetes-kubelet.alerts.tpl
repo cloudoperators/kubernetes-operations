@@ -1,6 +1,7 @@
 groups:
 - name: kubernetes-kubelet
   rules:
+{{ if not (.Values.prometheusRules.disabled.KubernetesManyKubeletsDown | default false) }}
   - alert: KubernetesManyKubeletsDown
     expr: |
      (
@@ -18,7 +19,9 @@ groups:
     annotations:
       description: Many Kubelets are DOWN.
       summary: More than 4 Kubelets are DOWN.
+{{- end }}
 
+{{ if not (.Values.prometheusRules.disabled.KubeletDown | default false) }}
   - alert: KubeletDown
     expr: up{job=~".*kubelet", metrics_path="/metrics"} == 0 or absent(up{job=~".*kubelet", metrics_path="/metrics})
     for: {{ dig "KubeletDown" "for" "10m" .Values.prometheusRules }}
@@ -31,7 +34,9 @@ groups:
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` is DOWN.
       summary: A Kubelet is DOWN.
+{{- end }}
 
+{{ if not (.Values.prometheusRules.disabled.KubeletTooManyPods | default false) }}
   - alert: KubeletTooManyPods
     expr: |
       count by (node) (
@@ -53,7 +58,9 @@ groups:
     annotations:
       description: Kubelet `{{`{{ $labels.node }}`}}` is running at `{{`{{ $value | humanizePercentage }}`}}` of its Pod capacity.
       summary: Kubelet is running at capacity.
+{{- end }}
 
+{{ if not (.Values.prometheusRules.disabled.KubeletFull | default false) }}
   - alert: KubeletFull
     expr: |
       count by (node) (
@@ -75,7 +82,9 @@ groups:
     annotations:
       description: Kubelet is full, no more pods can be scheduled on `{{`{{ $labels.node }}`}}`.
       summary: Kubelet is full.
+{{- end }}
 
+{{ if not (.Values.prometheusRules.disabled.KubeletHighNumberOfGoRoutines | default false) }}
   - alert: KubeletHighNumberOfGoRoutines
     expr: go_goroutines{job=~".*kubelet"} > {{ dig "KubeletHighNumberOfGoRoutines" "threshold" "5000" .Values.prometheusRules }}
     for: {{ dig "KubeletHighNumberOfGoRoutines" "for" "5m" .Values.prometheusRules }}
@@ -88,7 +97,9 @@ groups:
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` might be unresponsive due to a high number of Go routines.
       summary: High number of Go routines.
+{{- end }}
 
+{{ if not (.Values.prometheusRules.disabled.KubeletHighNumberOfGoRoutinesPredicted | default false) }}
   - alert: KubeletHighNumberOfGoRoutinesPredicted
     expr: abs(predict_linear(go_goroutines{job=~".*kubelet"}[1h], 2*3600)) > {{ dig "KubeletHighNumberOfGoRoutines" "threshold" "10000" .Values.prometheusRules }}
     for: {{ dig "KubeletHighNumberOfGoRoutinesPredicted" "for" "5m" .Values.prometheusRules }}
@@ -101,7 +112,9 @@ groups:
     annotations:
       description: Kublet on `{{`{{$labels.node}}`}}` might become unresponsive due to a high number of go routines within 2 hours.
       summary: Predicting high number of Go routines.
+{{- end }}
 
+{{ if not (.Values.prometheusRules.disabled.KubeletManyRequestErrors | default false) }}
   - alert: KubeletManyRequestErrors
     expr: |
       (
@@ -123,3 +136,4 @@ groups:
     annotations:
       description: "`{{`{{ $value | humanizePercentage }}`}}` of requests from kubelet on `{{`{{ $labels.node }}`}}` are erroneous."
       summary: Many HTTP 5xx responses for Kubelet requests.
+{{- end }}
