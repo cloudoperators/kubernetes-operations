@@ -39,5 +39,5 @@ dashboards:
 
   ## Label selectors for the Plutono dashboards to be picked up by Plutono.
   plutonoSelectors:
-    - name: plutono-datasource
+    - name: plutono-dashboard
       value: '"true"'
