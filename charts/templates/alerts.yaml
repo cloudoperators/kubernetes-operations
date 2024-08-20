@@ -1,3 +1,4 @@
+{{- if .Values.prometheusRules.create -}}
 {{- $root := . -}}
 {{- range $path, $bytes := .Files.Glob "alerts/*.alerts.tpl" }}
 apiVersion: monitoring.coreos.com/v1
@@ -20,4 +21,5 @@ spec:
 {{ tpl $content . | indent 2 }}
 {{- end }}
 ---
+{{- end }}
 {{- end }}

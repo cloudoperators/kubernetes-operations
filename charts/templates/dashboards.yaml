@@ -1,3 +1,4 @@
+{{- if .Values.dashboards.create }}
 {{ $root := . }}
 {{- range $path, $bytes := .Files.Glob "dashboards/*.json" }}
 ---
@@ -13,4 +14,4 @@ data:
 {{ printf "%s" $bytes | indent 4 }}
 
 {{- end }}
-
+{{- end }}

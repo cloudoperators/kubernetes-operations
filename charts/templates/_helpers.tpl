@@ -3,7 +3,7 @@
 {{- $path := index . 0 -}}
 {{- $root := index . 1 -}}
 app.kubernetes.io/version: {{ $root.Chart.Version }}
-app.kubernetes.io/part-of: cloudoperators.io/kubernetes-operations
+app.kubernetes.io/part-of: {{ $root.Release.Name }}
 {{- if $root.Values.commonLabels}}
 {{ toYaml $root.Values.commonLabels }}
 {{- end }}
