@@ -23,7 +23,7 @@ groups:
 
 {{ if not (.Values.prometheusRules.disabled.KubeletDown | default false) }}
   - alert: KubeletDown
-    expr: up{job=~".*kubelet", metrics_path="/metrics"} == 0 or absent(up{job=~".*kubelet", metrics_path="/metrics})
+    expr: up{job=~".*kubelet", metrics_path="/metrics"} == 0
     for: {{ dig "KubeletDown" "for" "10m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletDown" "severity" "warning" .Values.prometheusRules }}

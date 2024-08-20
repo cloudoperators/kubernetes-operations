@@ -59,6 +59,6 @@ groups:
       {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
     {{- end }}
     annotations:
-      description: Kubernetes aggregated API `{{`{{ $labels.namespace }}`}}/{{`{{ $labels.name `}}`}}` has been only `{{`{{ $value | humanizePercentage }}`}}` available over the last {{ dig "KubeAggregatedAPIDown" "for" "5m" .Values.prometheusRules }} . Run `kubectl get apiservice | grep -v Local` and confirm the services of aggregated APIs have active endpoints.
+      description: Kubernetes aggregated API `{{`{{ $labels.namespace }}`}}/{{`{{ $labels.name }}`}}` has been only `{{`{{ $value | humanizePercentage }}`}}` available over the last {{ dig "KubeAggregatedAPIDown" "for" "5m" .Values.prometheusRules }} . Run `kubectl get apiservice | grep -v Local` and confirm the services of aggregated APIs have active endpoints.
       summary: Kubernetes aggregated API is down.
 {{- end }}
