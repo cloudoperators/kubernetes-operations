@@ -1,11 +1,10 @@
-# SPDX-FileCopyrightText: 2022 Free Software Foundation Europe e.V. <https://fsfe.org>
-#
-# SPDX-License-Identifier: CC0-1.0
-
-name: REUSE Compliance Check
-
-on: [pull_request]
+name: Check & Fix License Header
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  reuse:
-    uses: cloudoperators/common/.github/workflows/shared-reuse.yaml@main
+  build-license-eye:
+    permissions:
+      contents: write # Only used when `apply_header: true` else the permission is `read` see: https://github.com/cloudoperators/common/blob/8f15c13b6f4c1631c7e6f6dff5c3300452e9b5b6/.github/workflows/shared-license.yaml#L21-L22
+    uses: cloudoperators/common/.github/workflows/shared-license.yaml@main
