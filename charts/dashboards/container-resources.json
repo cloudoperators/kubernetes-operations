@@ -13,11 +13,11 @@
       }
     ]
   },
-  "description": "Greenhouse k8s-monitoring Container resources",
+  "description": "Kubernetes Container resources",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1723118880838,
+  "iteration": 1726836483525,
   "links": [],
   "panels": [
     {
@@ -37,7 +37,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [container_cpu_usage_seconds_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) to calculate the median CPU usage in % based on the cumulative CPU time consumed. If multiple threads are used their times are added to the sum",
       "fieldConfig": {
         "defaults": {
@@ -99,16 +99,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
           "expr": "quantile(0.5, (rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}[5m])))",
-          "format": "time_series",
-          "instant": true,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -117,7 +115,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* ratio between [container_cpu_cfs_throttled_periods_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) and [container_cpu_cfs_periods_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) to calculate the median CPU throttling in %",
       "fieldConfig": {
         "defaults": {
@@ -179,16 +177,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
           "expr": "quantile(0.50, rate(container_cpu_cfs_throttled_periods_total{namespace=~\"$namespace\",pod=~\"$pod\", container=~\"$container\"}[5m]) / rate(container_cpu_cfs_periods_total{namespace=~\"$namespace\",pod=~\"$pod\", container=~\"$container\"}[5m]))",
-          "format": "time_series",
-          "instant": true,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -197,7 +193,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [kube_pod_container_resource_limits](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/pod-metrics.md) is used to calculate the total configured CPU limits of the selected pods or containers",
       "fieldConfig": {
         "defaults": {
@@ -261,16 +257,14 @@
         "showThresholdMarkers": false,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
           "expr": "sum(kube_pod_container_resource_limits{namespace=~\"$namespace\",resource=\"cpu\",container=~\"$container\", pod=~\"$pod\"})",
-          "format": "time_series",
-          "instant": true,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -279,7 +273,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [kube_pod_container_status_ready](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/pod-metrics.md) is used to calculate the number of ready containers of the selected pods or containers",
       "fieldConfig": {
         "defaults": {
@@ -342,16 +336,14 @@
         "showThresholdMarkers": false,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
           "expr": "sum(min_over_time(kube_pod_container_status_ready{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}[5m]))",
-          "format": "time_series",
-          "instant": true,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -360,7 +352,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* median ratio between [container_memory_working_set_bytes](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) and [kube_pod_container_resource_requests](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/pod-metrics.md) in % (provided by the [container_memory_utilization_ratio](https://github.com/sapcc/helm-charts/blob/f1c6d7fe8c9093b16e73d292e2454816a192ec22/prometheus-rules/metrics-regional-rules/templates/aggregations/collector/_resource.rules.tpl#L32) formula)",
       "fieldConfig": {
         "defaults": {
@@ -422,16 +414,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
-          "expr": "quantile(0.50, (container_memory_utilization_ratio{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}))",
-          "format": "time_series",
-          "instant": true,
+          "expr": "quantile(0.50, (\n    sum(container_memory_working_set_bytes) by (namespace, pod, container)\n    /\n    sum(kube_pod_container_resource_requests{resource=\"memory\"}) by (namespace, pod, container)\n    )\n)",
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -440,7 +430,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* median ratio between [container_memory_working_set_bytes](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) and [kube_pod_container_resource_limits](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/pod-metrics.md) in % (provided by the [container_memory_saturation_ratio](https://github.com/sapcc/helm-charts/blob/f1c6d7fe8c9093b16e73d292e2454816a192ec22/prometheus-rules/metrics-regional-rules/templates/aggregations/collector/_resource.rules.tpl#L26) formula)\n* 100%  saturation means OOMKill!",
       "fieldConfig": {
         "defaults": {
@@ -502,16 +492,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
-          "expr": "quantile(0.50, (container_memory_saturation_ratio{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}))",
-          "format": "time_series",
-          "instant": true,
+          "expr": "quantile(0.50, (\n    sum(container_memory_working_set_bytes) by (namespace, pod, container)\n    /\n    sum(kube_pod_container_resource_limits{resource=\"memory\"}) by (namespace, pod, container)\n    )\n)",
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -520,7 +508,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [container_memory_working_set_bytes](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) is used to calculate the total RAM usage of the selected pods or containers",
       "fieldConfig": {
         "defaults": {
@@ -583,16 +571,14 @@
         "showThresholdMarkers": false,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", container=~\"$container\",pod=~\"$pod\"})",
-          "format": "time_series",
-          "instant": true,
+          "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\",container=~\"$container\",pod=~\"$pod\"})",
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -601,7 +587,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [kube_pod_container_resource_requests](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/pod-metrics.md) is used to calculate the total RAM requests of the selected pods or containers",
       "fieldConfig": {
         "defaults": {
@@ -664,16 +650,14 @@
         "showThresholdMarkers": false,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
           "expr": "sum(kube_pod_container_resource_requests{namespace=~\"$namespace\",resource=\"memory\",container=~\"$container\",pod=~\"$pod\"})",
-          "format": "time_series",
-          "instant": true,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -682,7 +666,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [kube_pod_container_resource_limits](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/pod-metrics.md) is used to calculate the total configured RAM limits of the selected pods or containers",
       "fieldConfig": {
         "defaults": {
@@ -745,16 +729,14 @@
         "showThresholdMarkers": false,
         "text": {}
       },
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "targets": [
         {
           "exemplar": true,
           "expr": "sum(kube_pod_container_resource_limits{namespace=~\"$namespace\",resource=\"memory\",container=~\"$container\", pod=~\"$pod\"})",
-          "format": "time_series",
-          "instant": true,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -781,7 +763,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [container_cpu_usage_seconds_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) to calculate the CPU usage in % based on the cumulative CPU time consumed. If multiple threads are used their times are added to the sum\n* [container_cpu_cfs_throttled_periods_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) to calculate the CPU throttling in % because of defined limits",
       "fieldConfig": {
         "defaults": {
@@ -818,7 +800,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -837,20 +819,17 @@
         {
           "exemplar": true,
           "expr": "sum by (pod, container) (rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}[5m]))",
-          "format": "time_series",
-          "instant": false,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "cpu usage | {{pod}}/{{container}}",
+          "queryType": "randomWalk",
           "refId": "A"
         },
         {
           "exemplar": true,
           "expr": "sum by (pod, container) (rate(container_cpu_cfs_throttled_periods_total{namespace=~\"$namespace\",pod=~\"$pod\", container=~\"$container\"}[5m]) / rate(container_cpu_cfs_periods_total[5m]))",
-          "format": "time_series",
+          "hide": false,
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "cpu throttling | {{pod_name}}/{{container_name}}",
+          "legendFormat": "cpu throttling | {{pod}}/{{container}}",
           "refId": "B"
         }
       ],
@@ -934,7 +913,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "# used formulas\n* [container_cpu_cfs_periods_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) is used to count the amount of CPU request periods that have triggered limit checks\n* [container_cpu_cfs_throttled_periods_total](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) is used to count the amount of throttled CPU request periods because of limit checks",
       "fieldConfig": {
@@ -972,7 +951,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -992,20 +971,16 @@
         {
           "exemplar": true,
           "expr": "round(rate(container_cpu_cfs_periods_total{container=~\"$container\",pod=~\"$pod\"}[5m]), 0.01)",
-          "format": "time_series",
-          "instant": false,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "periods | {{pod}}/ {{container}}",
+          "queryType": "randomWalk",
           "refId": "A"
         },
         {
           "exemplar": true,
           "expr": "round(rate(container_cpu_cfs_throttled_periods_total{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}[5m]), 0.01)",
-          "format": "time_series",
-          "instant": false,
+          "hide": false,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "throttled periods | {{pod}}/{{container}}",
           "refId": "B"
         }
@@ -1074,7 +1049,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "# used formulas\n* [container_memory_working_set_bytes](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) to calculate the RAM usage of the container",
       "fieldConfig": {
@@ -1114,7 +1089,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1126,10 +1101,9 @@
         {
           "exemplar": true,
           "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\",container=~\"$container\",pod=~\"$pod\"}) by (namespace, pod, container)",
-          "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "{{pod}}/{{container}}",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -1181,7 +1155,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "# used formulas\n* [container_memory_saturation_ratio](https://github.com/sapcc/helm-charts/blob/f1c6d7fe8c9093b16e73d292e2454816a192ec22/prometheus-rules/metrics-regional-rules/templates/aggregations/collector/_resource.rules.tpl#L26) is used to calculate the used memory to configured limits ratio\n* [container_memory_utilization_ratio](https://github.com/sapcc/helm-charts/blob/f1c6d7fe8c9093b16e73d292e2454816a192ec22/prometheus-rules/metrics-regional-rules/templates/aggregations/collector/_resource.rules.tpl#L32) is used to calculate the used memory to configured requests ratio",
       "fieldConfig": {
         "defaults": {
@@ -1217,7 +1191,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.32",
+      "pluginVersion": "7.5.33",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1228,19 +1202,17 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "container_memory_saturation_ratio{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}",
-          "format": "time_series",
+          "expr": "sum(container_memory_working_set_bytes) by (namespace, pod, container)\n/\nsum(kube_pod_container_resource_limits{resource=\"memory\"}) by (namespace, pod, container)",
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "used limits | {{pod}}/{{container}}",
+          "queryType": "randomWalk",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "container_memory_utilization_ratio{namespace=~\"$namespace\",container=~\"$container\", pod=~\"$pod\"}",
+          "expr": "sum(container_memory_working_set_bytes) by (namespace, pod, container)\n/\nsum(kube_pod_container_resource_requests{resource=\"memory\"}) by (namespace, pod, container)",
           "hide": false,
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "used request | {{pod}}/{{container}}",
           "refId": "B"
         }
@@ -1324,7 +1296,7 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "prometheus",
+        "name": "datasource",
         "options": [],
         "query": "prometheus",
         "refresh": 1,
@@ -1333,7 +1305,7 @@
         "type": "datasource"
       },
       {
-        "allValue": ".*",
+        "allValue": "",
         "current": {
           "selected": true,
           "tags": [],
@@ -1344,7 +1316,7 @@
             "$__all"
           ]
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(namespace)",
         "description": null,
         "error": null,
@@ -1379,7 +1351,7 @@
             "$__all"
           ]
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(container_memory_working_set_bytes{namespace=~\"$namespace\"}, pod)",
         "description": null,
         "error": null,
@@ -1410,7 +1382,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(container_memory_working_set_bytes{pod=~\"$pod\"}, container)",
         "description": null,
         "error": null,
@@ -1468,5 +1440,5 @@
   "timezone": "",
   "title": "Kubernetes Container Resources",
   "uid": "kubernetes-container-resources",
-  "version": 3
+  "version": 1
 }
