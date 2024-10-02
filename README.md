@@ -15,7 +15,7 @@ kubernetes-operations
     │
     ├── playbooks/              Step-by-step instructions for troubleshooting.
     │                            
-    └── helm-charts/
+    └── charts/
          │
          └── kubernetes-operations
               │
