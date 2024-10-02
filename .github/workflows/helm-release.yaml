@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - chartDir: charts
+          - chartDir: charts/kubernetes-operations
             chartName: kubernetes-operations
 
     steps:
