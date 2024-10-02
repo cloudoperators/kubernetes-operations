@@ -15,15 +15,17 @@ kubernetes-operations
     │
     ├── playbooks/              Step-by-step instructions for troubleshooting.
     │                            
-    └── charts/
+    └── helm-charts/
          │
-         ├── aggregations       Prometheus aggregation rules for kubernetes.
-         │
-         ├── alerts             Prometheus alerts for kubernetes.
-         │
-         ├── dashboards         Plutono dashboards for visualizing key metrics.
-         │
-         └── Chart.yaml         Helm chart manifest.
+         └── kubernetes-operations
+              │
+              ├── aggregations       Prometheus aggregation rules for kubernetes.
+              │
+              ├── alerts             Prometheus alerts for kubernetes.
+              │
+              ├── dashboards         Plutono dashboards for visualizing key metrics.
+              │
+              └── Chart.yaml         Helm chart manifest.
 ```
 
 ## Requirements and Setup

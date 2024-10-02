@@ -17,7 +17,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1726836483525,
+  "id": 6,
+  "iteration": 1727875708353,
   "links": [],
   "panels": [
     {
@@ -1279,7 +1280,6 @@
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
-    "prometheus",
     "kubernetes"
   ],
   "templating": {
@@ -1308,7 +1308,6 @@
         "allValue": "",
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],

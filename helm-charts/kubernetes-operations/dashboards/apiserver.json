@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": 15761,
   "graphTooltip": 1,
-  "id": 5,
-  "iteration": 1727863051659,
+  "iteration": 1727864391671,
   "links": [],
   "panels": [
     {
@@ -156,7 +155,7 @@
       "title": "HTTP Requests by code",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -252,7 +251,7 @@
       "title": "HTTP Requests by verb",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -289,75 +288,51 @@
       }
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "graph": false,
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "ms"
         },
         "overrides": []
       },
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 24,
         "x": 0,
         "y": 13
       },
+      "hiddenSeries": false,
       "id": 54,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
       },
-      "pluginVersion": "8.3.3",
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.33",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
           "exemplar": true,
@@ -367,8 +342,46 @@
           "refId": "A"
         }
       ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
       "title": "HTTP Requests Latency (99th percentile) by verb",
-      "type": "timeseries"
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -432,7 +445,7 @@
       "title": "Top 10 Objects by kind",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -705,9 +718,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(apiserver_request_total{job=\"apiserver\"}[5m])) by (instance)",
+          "expr": "sum(rate(apiserver_request_total{job=\"apiserver\"}[5m])) by (job, instance)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ job }}:{{ instance }}",
           "refId": "A"
         }
       ],
@@ -872,7 +885,7 @@
           "exemplar": true,
           "expr": "rate(process_cpu_seconds_total{job=\"apiserver\"}[5m])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ job }}:{{ instance }}",
           "refId": "A"
         }
       ],
@@ -954,7 +967,7 @@
           "exemplar": true,
           "expr": "process_resident_memory_bytes{job=\"apiserver\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ job }}:{{ instance }}",
           "refId": "A"
         }
       ],
@@ -973,8 +986,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kube-monitoring-obs-eu-nl-1-prometheus",
-          "value": "kube-monitoring-obs-eu-nl-1-prometheus"
+          "text": "kube-monitoring-obs-eu-de-1-prometheus",
+          "value": "kube-monitoring-obs-eu-de-1-prometheus"
         },
         "description": null,
         "error": null,
@@ -994,7 +1007,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
