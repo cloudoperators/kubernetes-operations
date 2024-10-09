@@ -8,9 +8,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesApiServerDown" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesApiServerDown.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubernetes API server has disappeared from Prometheus target discovery.
       summary: Target disappeared from Prometheus target discovery.
@@ -31,9 +29,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesApiServerLatency" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesApiServerLatency.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: ApiServerLatency for `{{`{{ $labels.resource }}`}}` is higher then usual for the past {{ dig "KubernetesApiServerDown" "for" "30m" .Values.prometheusRules }} minutes. Inspect apiserver logs for the root cause.
       summary: ApiServerLatency is unusually high.
@@ -55,9 +51,7 @@ groups:
     labels:
       severity: {{ dig "KubeAggregatedAPIDown" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeAggregatedAPIDown.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubernetes aggregated API `{{`{{ $labels.namespace }}`}}/{{`{{ $labels.name }}`}}` has been only `{{`{{ $value | humanizePercentage }}`}}` available over the last {{ dig "KubeAggregatedAPIDown" "for" "5m" .Values.prometheusRules }} . Run `kubectl get apiservice | grep -v Local` and confirm the services of aggregated APIs have active endpoints.
       summary: Kubernetes aggregated API is down.

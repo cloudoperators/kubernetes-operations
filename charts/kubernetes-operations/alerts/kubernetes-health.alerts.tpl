@@ -8,9 +8,7 @@ groups:
     labels:
       severity: {{ dig "KubeStateMetricsScrapeFailed" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeStateMetricsScrapeFailed.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Failed to scrape kube-state-metrics. Metrics on the cluster state might be outdated.
       summary: kube-state-metrics scrape failed.
@@ -23,9 +21,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeManyNotReady" "severity" "critical" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesManyNodesNotReady.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: "`{{`{{ $value }}`}}` nodes are `NotReady` for more than an hour."
       summary: Many Nodes are NotReady.
@@ -38,9 +34,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeNotReady" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeNotReady.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       summary: Node status is NotReady.
       description: Node `{{`{{ $labels.node }}`}}` is NotReady for more than an hour.
@@ -53,9 +47,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeReadinessFlapping" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeReadinessFlapping.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Node `{{`{{ $labels.node }}`}}` is flapping between Ready and NotReady.
       summary: Node readiness status is flapping.
@@ -68,9 +60,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesPodRestartingTooMuch" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesPodRestartingTooMuch.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Container `{{`{{ $labels.container }}`}}` of pod `{{`{{ $labels.namespace }}/{{ $labels.pod }}`}}` is restarting constantly.
       summary: Pod is in a restart loop.
@@ -84,9 +74,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesTooManyOpenFiles" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesTooManyOpenFiles.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: "`{{`{{ $labels.job }}`}}` on `{{`{{ $labels.node }}`}}` is using `{{`{{ $value }}%`}}` of the available `file/socket` descriptors."
       summary: Too many open file descriptors.
@@ -108,9 +96,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesDeploymentReplicasMismatch" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesDeploymentReplicasMismatch.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Deployment `{{`{{ $labels.namespace }}/{{ $labels.deployment }}`}}` has not matched the expected number of replicas for longer than 10 minutes.
       summary: Deployment has not matched the expected number of replicas.
@@ -135,9 +121,7 @@ groups:
     labels:
       severity: {{ dig "KubePodNotReady" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubePodNotReady.md 
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Pod `{{`{{ $labels.namespace }}/{{ $labels.pod }}`}}` has been in a non-ready state for longer than {{ dig "KubePodNotReady" "for" "30m" .Values.prometheusRules }} minutes.
       summary: Pod has been in a non-ready state for more than {{ dig "KubePodNotReady" "for" "30m" .Values.prometheusRules }} minutes.

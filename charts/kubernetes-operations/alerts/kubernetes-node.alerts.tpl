@@ -8,9 +8,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeHostHighCPUUsage" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHostHighCPUUsage.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Node `{{`{{ $labels.node }}`}}`has more than `{{`{{ $value | humanizePercentage }}`}}` CPU load for {{ dig "NodeHostHighCPUUsage" "for" "6h" .Values.prometheusRules }}
       summary: High CPU load on node.
@@ -23,9 +21,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeKernelDeadlock" "severity" "info" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeKernelDeadlock.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       summary: Permanent kernel deadlock on `{{`{{ $labels.node }}`}}`. Please drain and reboot node.
       description: The kernel of the node has deadlocked.
@@ -38,9 +34,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeDiskPressure" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeDiskPressure.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Node `{{`{{ $labels.node }}`}}` under pressure due to insufficient available disk space.
       summary: Insufficient disk space for the node.
@@ -53,9 +47,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeMemoryPressure" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeMemoryPressure.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Node `{{`{{ $labels.node }}`}}` under pressure due to insufficient available memory.
       summary: Insufficient memory for the node.
@@ -80,9 +72,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeHighDiskUsagePercentage" "severity" "info" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHighDiskUsagePercentage.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Node disk usage above 85%
       summary: "Disk usage on `{{`{{ $labels.node }}`}}` at `{{`{{ $value | humanizePercentage }}`}}`"
@@ -95,9 +85,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeHighNumberOfOpenConnections" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHighNumberOfOpenConnections.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: The node `{{`{{ $labels.node }}`}}` has more than 20000 active TCP connections. The maximum possible number is 32768 connections.
       summary: High number of open TCP connections on node.
@@ -110,9 +98,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeHighRiseOfOpenConnections" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHighRiseOfOpenConnections.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: The node `{{`{{ $labels.node }}`}}` will probably reach 32768 active TCP connections within the next hour.If this happens, it will no longer be able to accept new connections.
       summary: High number of open TCP connections on node.
@@ -124,9 +110,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeContainerOOMKilled" "severity" "info" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeContainerOOMKilled.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: More than 3 pods on node `{{`{{ $labels.node }}`}}` terminated within 24 hours by the Out of Memory Manager (OOMkilled).
       summary: More than 3 OOM killed pods on a node within 24h.
@@ -139,9 +123,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeHighNumberOfThreads" "severity" "critical" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHighNumberOfThreads.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: High number of threads on `{{`{{ $labels.node }}`}}`. Forking problems are imminent.
       summary: Very high number of threads on node.
@@ -154,9 +136,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeReadOnlyRootFilesystem" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeReadOnlyRootFilesystem.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: The node `{{`{{ $labels.node }}`}}` has a read-only root file system. This can lead to unpredictable problems. A restart of the node is recommended to resolve the problem.
       summary: Read-only root filesystem on node.
@@ -168,9 +148,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeRebootsTooFast" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeRebootsTooFast.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: The node `{{`{{ $labels.node }}`}}` rebooted `{{`{{ $value | humanize }}`}}` times in the past hour. It could be stuck in a reboot/panic loop.
       summary: Node rebooted multiple times.

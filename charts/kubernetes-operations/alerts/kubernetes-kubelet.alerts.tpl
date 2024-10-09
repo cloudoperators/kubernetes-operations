@@ -13,9 +13,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesManyKubeletsDown" "severity" "critical" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesManyKubeletsDown.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Many Kubelets are DOWN.
       summary: More than 4 Kubelets are DOWN.
@@ -28,9 +26,7 @@ groups:
     labels:
       severity: {{ dig "KubeletDown" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletDown.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` is DOWN.
       summary: A Kubelet is DOWN.
@@ -52,9 +48,7 @@ groups:
     labels:
       severity: {{ dig "KubeletTooManyPods" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletTooManyPods.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubelet `{{`{{ $labels.node }}`}}` is running at `{{`{{ $value | humanizePercentage }}`}}` of its Pod capacity.
       summary: Kubelet is running at capacity.
@@ -76,9 +70,7 @@ groups:
     labels:
       severity: {{ dig "KubeletFull" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletFull.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubelet is full, no more pods can be scheduled on `{{`{{ $labels.node }}`}}`.
       summary: Kubelet is full.
@@ -91,9 +83,7 @@ groups:
     labels:
       severity: {{ dig "KubeletHighNumberOfGoRoutines" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutines.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` might be unresponsive due to a high number of Go routines.
       summary: High number of Go routines.
@@ -106,9 +96,7 @@ groups:
     labels:
       severity: {{ dig "KubeletHighNumberOfGoRoutinesPredicted" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutinesPredicted.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{$labels.node}}`}}` might become unresponsive due to a high number of go routines within 2 hours.
       summary: Predicting high number of Go routines.
@@ -130,9 +118,7 @@ groups:
     labels:
       severity: {{ dig "KubeletManyRequestErrors" "severity" "warning" .Values.prometheusRules }}
       runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletManyRequestErrors.md
-    {{- if .Values.prometheusRules.additionalRuleLabels }}
-      {{- toYaml .Values.prometheusRules.additionalRuleLabels | nindent 6 }}
-    {{- end }}
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: "`{{`{{ $value | humanizePercentage }}`}}` of requests from kubelet on `{{`{{ $labels.node }}`}}` are erroneous."
       summary: Many HTTP 5xx responses for Kubelet requests.
