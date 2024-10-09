@@ -4,7 +4,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ printf "%s-%s" $.Release.Name $path | replace "/" "-" | trunc 63 | trimSuffix ".alerts.tpl" }}
+  name: {{ printf "%s-%s" $.Release.Name $path | replace "/" "-" | replace "." "-" | trimSuffix "-tpl" | replace "-alerts-" "-" | trunc 63 }}
   labels:
 {{ include "kubernetes-operations.ruleSelectorLabels" (list $path $root) | indent 4 }} 
 {{ include "kubernetes-operations.labels" (list $path $root) | indent 4 }}
