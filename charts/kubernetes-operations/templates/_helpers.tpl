@@ -15,7 +15,7 @@ app.kubernetes.io/part-of: {{ $root.Release.Name }}
 plugin: {{ $root.Release.Name }}
 {{- if $root.Values.prometheusRules.ruleSelectors }}
 {{- range $i, $target := $root.Values.prometheusRules.ruleSelectors }}
-{{ $target.name | required (printf "$.Values.prometheusRules.ruleSelector.[%v].name missing" $i) }}: {{ tpl ($target.value | required (printf "$.Values.prometheusRules.ruleSelector.[%v].value missing" $i)) $ }}
+{{ $target.name | required (printf "$.Values.prometheusRules.ruleSelector.[%v].name missing" $i) }}: {{ tpl ($target.value | required (printf "$.Values.prometheusRules.ruleSelector.[%v].value missing" $i)) $root }}
 {{- end }}
 {{- end }}
 {{- end }}
