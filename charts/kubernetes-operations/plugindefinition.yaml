@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2024 SAP SE or an SAP affiliate company and cobaltcore-dev contributors
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: greenhouse.sap/v1alpha1
+kind: PluginDefinition
+metadata:
+  name: kubernetes-operations
+spec:
+  version: 0.0.11
+  displayName: Kubernetes operations bundle
+  description: Operations bundle for Kubernetes
+  docMarkDownUrl: https://raw.githubusercontent.com/cloudoperators/kubernetes-operations/main/README.md
+  icon: https://raw.githubusercontent.com/cloudoperators/kubernetes-operations/main/charts/kubernetes-operations/kubernetes-logo.png
+  helmChart:
+    name: kubernetes-operations
+    repository: oci://ghcr.io/cloudoperators/kubernetes-operations/charts
+    version: 0.0.11
+  options:
+    - name: prometheusRules.create
+      description: Create Prometheus rules
+      required: false
+      default: true
+      type: bool
+    - name: prometheusRules.ruleSelector
+      description: Selector for Prometheus rules to be picked up by the Prometheus operator. List of key-value pairs.
+      required: false
+      type: list
+    - name: prometheusRules.additionalRuleLabels
+      description: Additional labels to be added every Prometheus rule. E.g support_group, service
+      required: false
+      type: map
+    - name: dashboards.create
+      description: Create Plutono dashboards
+      required: false
+      default: true
+      type: bool
+    - name: dashboards.dashboardSelector
+      description: Selector for dashboards to be picked up by the Plutono. List of key-value pairs.
+      required: false
+      type: list
