@@ -7,4 +7,4 @@ target-branch: main
 validate-maintainers: false
 check-version-increment: false
 chart-dirs:
-  - charts/kubernetes-operations
+  - charts
