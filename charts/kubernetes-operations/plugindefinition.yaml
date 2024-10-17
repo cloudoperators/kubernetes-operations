@@ -6,7 +6,7 @@ kind: PluginDefinition
 metadata:
   name: kubernetes-operations
 spec:
-  version: 0.0.11
+  version: 1.0.0
   displayName: Kubernetes operations bundle
   description: Operations bundle for Kubernetes
   docMarkDownUrl: https://raw.githubusercontent.com/cloudoperators/kubernetes-operations/main/README.md
@@ -14,7 +14,7 @@ spec:
   helmChart:
     name: kubernetes-operations
     repository: oci://ghcr.io/cloudoperators/kubernetes-operations/charts
-    version: 0.0.11
+    version: 1.0.0
   options:
     - name: prometheusRules.create
       description: Create Prometheus rules
