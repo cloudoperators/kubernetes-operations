@@ -8,8 +8,6 @@ description: A set of Plutono dashboards and Prometheus alerting rules combined 
 maintainers:
   - name: Richard Tief (I520251)
     email: richard.tief@sap.com
-sources:
-  - ghcr.io/cloudoperators/kubernetes-operations
 keywords:
   - Helm Chart
   - Kubernetes operations
