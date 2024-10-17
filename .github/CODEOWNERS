@@ -1,6 +1,6 @@
 # These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence,
-*                   @cloudoperators/greenhouse-core @cloudoperators/greenhouse-observability
+# the repo. Unless a later match takes precedence
+*                   @cloudoperators/administrators @cloudoperators/greenhouse-observability
 
-/charts/            @Developers
-/playbooks/         @Developers
+/charts/            @cloudoperators/collaborators @cloudoperators/developers
+/playbooks/         @cloudoperators/collaborators @cloudoperators/developers
