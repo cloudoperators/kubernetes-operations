@@ -9,8 +9,8 @@ global:
 ## C default rules for monitoring the cluster
 ##
 prometheusRules:
-  
-  ## Enables PrometheusRule resources to be created 
+
+  ## Enables PrometheusRule resources to be created
   create: true
 
   ## Label selectors for the Prometheus rules to be picked up by Prometheus.
