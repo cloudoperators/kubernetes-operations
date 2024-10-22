@@ -3,7 +3,7 @@
 
 apiVersion: v2
 name: kubernetes-operations
-version: 1.1.0
+version: 1.1.1
 description: A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
 maintainers:
   - name: Richard Tief (I520251)
