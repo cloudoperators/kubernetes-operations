@@ -2,6 +2,25 @@ apiVersion: v1
 entries:
   kubernetes-operations:
   - apiVersion: v2
+    created: "2024-11-06T15:02:45.827210141Z"
+    description: A set of Plutono dashboards and Prometheus alerting rules combined
+      with playbooks to ensure effective operations of Kubernetes.
+    digest: c8a1d33d224f82ca10017c560ab5befbe4032207667e22bac19b284e8950130b
+    keywords:
+    - Helm Chart
+    - Kubernetes operations
+    - Plutono Dashboards
+    - Prometheus Alerting
+    - Alert Rules
+    - Playbooks
+    maintainers:
+    - email: richard.tief@sap.com
+      name: Richard Tief (I520251)
+    name: kubernetes-operations
+    urls:
+    - https://github.com/cloudoperators/kubernetes-operations/releases/download/kubernetes-operations-1.1.3/kubernetes-operations-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
     created: "2024-11-06T14:54:39.873181311Z"
     description: A set of Plutono dashboards and Prometheus alerting rules combined
       with playbooks to ensure effective operations of Kubernetes.
@@ -163,4 +182,4 @@ entries:
     urls:
     - https://github.com/cloudoperators/kubernetes-operations/releases/download/kubernetes-operations-0.0.8/kubernetes-operations-0.0.8.tgz
     version: 0.0.8
-generated: "2024-11-06T14:54:39.873215996Z"
+generated: "2024-11-06T15:02:45.827249354Z"
