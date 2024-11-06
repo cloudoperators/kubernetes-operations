@@ -27,7 +27,8 @@
   "editable": true,
   "gnetId": 704,
   "graphTooltip": 0,
-  "iteration": 1727869420901,
+  "id": 4,
+  "iteration": 1730903325934,
   "links": [
     {
       "icon": "external link",
@@ -100,6 +101,7 @@
           "exemplar": true,
           "expr": "count without(cpu, mode) (node_cpu_seconds_total{mode=\"idle\", node=~\"$server.*\"})",
           "format": "time_series",
+          "instant": true,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -1761,11 +1763,7 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "kube-monitoring-obs-eu-nl-1-prometheus",
-          "value": "kube-monitoring-obs-eu-nl-1-prometheus"
-        },
+        "current": {},
         "description": null,
         "error": null,
         "hide": 0,
@@ -1783,11 +1781,7 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "shoot--greenhouse--obs-eu-nl-1-worker-gi44r-z1-747f4-ghw6g",
-          "value": "shoot--greenhouse--obs-eu-nl-1-worker-gi44r-z1-747f4-ghw6g"
-        },
+        "current": {},
         "datasource": "$datasource",
         "definition": "",
         "description": null,
@@ -1799,8 +1793,7 @@
         "name": "server",
         "options": [],
         "query": {
-          "query": "label_values(kube_node_info, node)",
-          "refId": "maia-prometheus-server-Variable-Query"
+          "query": "label_values(kube_node_info, node)"
         },
         "refresh": 1,
         "regex": "",
