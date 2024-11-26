@@ -986,8 +986,8 @@
       {
         "current": {
           "selected": false,
-          "text": "kube-monitoring-obs-eu-de-1-prometheus",
-          "value": "kube-monitoring-obs-eu-de-1-prometheus"
+          "text": "kube-monitoring-prometheus",
+          "value": "kube-monitoring-prometheus"
         },
         "description": null,
         "error": null,

@@ -9,17 +9,6 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
-      },
-      {
-        "datasource": "$datasource",
-        "enable": false,
-        "expr": "ALERTS{alertname=\"KubernetesNodeNotReady\"}",
-        "iconColor": "rgba(255, 96, 96, 1)",
-        "limit": 100,
-        "name": "node-down",
-        "textFormat": "{{node}}",
-        "titleFormat": "{{alertname}}",
-        "type": "alert"
       }
     ]
   },
@@ -27,8 +16,8 @@
   "editable": true,
   "gnetId": 704,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1730903325934,
+  "id": 16,
+  "iteration": 1732622485987,
   "links": [
     {
       "icon": "external link",
@@ -95,13 +84,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "targets": [
         {
           "exemplar": true,
           "expr": "count without(cpu, mode) (node_cpu_seconds_total{mode=\"idle\", node=~\"$server.*\"})",
           "format": "time_series",
-          "instant": true,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -692,7 +680,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -829,7 +817,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1030,7 +1018,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1136,7 +1124,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1244,7 +1232,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1358,7 +1346,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1500,7 +1488,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1597,7 +1585,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1694,7 +1682,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.33",
+      "pluginVersion": "7.5.34",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1763,7 +1751,11 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "kube-monitoring-prometheus",
+          "value": "kube-monitoring-prometheus"
+        },
         "description": null,
         "error": null,
         "hide": 0,
@@ -1781,9 +1773,13 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "node-1",
+          "value": "node-1"
+        },
         "datasource": "$datasource",
-        "definition": "",
+        "definition": "label_values(kube_node_info, node)",
         "description": null,
         "error": null,
         "hide": 1,
@@ -1793,7 +1789,8 @@
         "name": "server",
         "options": [],
         "query": {
-          "query": "label_values(kube_node_info, node)"
+          "query": "label_values(kube_node_info, node)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -1838,6 +1835,5 @@
   },
   "timezone": "browser",
   "title": "Kubernetes Node",
-  "uid": "6f227e1eK",
-  "version": 1
+  "version": 4
 }
