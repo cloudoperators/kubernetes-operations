@@ -90,6 +90,7 @@
           "exemplar": true,
           "expr": "count without(cpu, mode) (node_cpu_seconds_total{mode=\"idle\", node=~\"$server.*\"})",
           "format": "time_series",
+          "instant": true,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
