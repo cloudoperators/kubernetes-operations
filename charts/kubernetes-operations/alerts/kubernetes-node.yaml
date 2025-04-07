@@ -153,3 +153,16 @@ groups:
       description: The node `{{`{{ $labels.node }}`}}` rebooted `{{`{{ $value | humanize }}`}}` times in the past hour. It could be stuck in a reboot/panic loop.
       summary: Node rebooted multiple times.
 {{- end }}
+
+{{- if not (.Values.prometheusRules.disabled.NodeInMaintenance | default false) }}
+  - alert: NodeInMaintenance
+    expr: {{ printf "max by (node) (kube_node_labels{label_%s='%s'}) == 1" .Values.prometheusRules.NodeInMaintenance.label .Values.prometheusRules.NodeInMaintenance.value }}`
+    for: 2m
+    labels:
+      severity: {{ dig "NodeInMaintenance" "severity" "none" .Values.prometheusRules }}
+      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/NodeInMaintenance.md
+      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
+    annotations:
+      description: This is an alert that is used to inhibit alerts. The node `{{`{{ $labels.node }}`}}` is in scheduled maintenance. Add the label 'inhibited_by=node-maintenance' to the associated alerts that should be suppressed while a node is being maintained.
+      summary: Node in maintenance.
+{{- end }}
