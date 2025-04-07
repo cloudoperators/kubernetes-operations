@@ -160,7 +160,7 @@ groups:
     for: 2m
     labels:
       severity: {{ dig "NodeInMaintenance" "severity" "none" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/NodeInMaintenance.md
+      runbook_url: https://github.com/cloudoperators/kubernetes-operations/blob/main/playbooks/NodeInMaintenance.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: This is an alert that is used to inhibit alerts. The node `{{`{{ $labels.node }}`}}` is in scheduled maintenance. Add the label 'inhibited_by=node-maintenance' to the associated alerts that should be suppressed while a node is being maintained.
