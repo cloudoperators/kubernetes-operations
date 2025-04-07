@@ -2,5 +2,5 @@
 # the repo. Unless a later match takes precedence
 *                   @cloudoperators/administrators @cloudoperators/greenhouse-observability
 
-/charts/            @cloudoperators/collaborators @cloudoperators/developers
-/playbooks/         @cloudoperators/collaborators @cloudoperators/developers
+/charts/            @cloudoperators/developers
+/playbooks/         @cloudoperators/developers
