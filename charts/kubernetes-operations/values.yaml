@@ -40,6 +40,11 @@ prometheusRules:
   # KubernetesApiServerDown: true
   # KubeletDown: true
 
+  ## The label value pair that marks a Kubernetes node as 'in maintenance'
+  NodeInMaintenance:
+    label: maintenance_state
+    value: in-maintenance
+
 ## Create default dashboards for monitoring the cluster
 ##
 dashboards:
