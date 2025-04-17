@@ -12,7 +12,7 @@ groups:
     for: {{ dig "KubernetesManyKubeletsDown" "for" "10m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubernetesManyKubeletsDown" "severity" "critical" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesManyKubeletsDown.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesManyKubeletsDown.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Many Kubelets are DOWN.
@@ -25,7 +25,7 @@ groups:
     for: {{ dig "KubeletDown" "for" "10m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletDown" "severity" "warning" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletDown.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletDown.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` is DOWN.
@@ -47,7 +47,7 @@ groups:
     for: {{ dig "KubeletTooManyPods" "for" "1h" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletTooManyPods" "severity" "warning" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletTooManyPods.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletTooManyPods.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubelet `{{`{{ $labels.node }}`}}` is running at `{{`{{ $value | humanizePercentage }}`}}` of its Pod capacity.
@@ -69,7 +69,7 @@ groups:
     for: {{ dig "KubeletFull" "for" "1h" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletFull" "severity" "warning" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletFull.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletFull.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubelet is full, no more pods can be scheduled on `{{`{{ $labels.node }}`}}`.
@@ -82,7 +82,7 @@ groups:
     for: {{ dig "KubeletHighNumberOfGoRoutines" "for" "5m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletHighNumberOfGoRoutines" "severity" "warning" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutines.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutines.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` might be unresponsive due to a high number of Go routines.
@@ -95,7 +95,7 @@ groups:
     for: {{ dig "KubeletHighNumberOfGoRoutinesPredicted" "for" "5m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletHighNumberOfGoRoutinesPredicted" "severity" "warning" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutinesPredicted.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutinesPredicted.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{$labels.node}}`}}` might become unresponsive due to a high number of go routines within 2 hours.
@@ -117,7 +117,7 @@ groups:
     for: {{ dig "KubeletManyRequestErrors" "for" "5m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletManyRequestErrors" "severity" "warning" .Values.prometheusRules }}
-      runbook_url: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletManyRequestErrors.md
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletManyRequestErrors.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: "`{{`{{ $value | humanizePercentage }}`}}` of requests from kubelet on `{{`{{ $labels.node }}`}}` are erroneous."
