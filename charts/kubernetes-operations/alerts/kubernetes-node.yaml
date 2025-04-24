@@ -156,7 +156,7 @@ groups:
 
 {{- if not (.Values.prometheusRules.disabled.NodeInMaintenance | default false) }}
   - alert: NodeInMaintenance
-    expr: {{ printf "max by (node) (kube_node_labels{label_%s='%s'}) == 1" .Values.prometheusRules.NodeInMaintenance.label .Values.prometheusRules.NodeInMaintenance.value }}`
+    expr: {{ printf "max by (node) (kube_node_labels{label_%s='%s'}) == 1" .Values.prometheusRules.NodeInMaintenance.label .Values.prometheusRules.NodeInMaintenance.value }}
     for: 2m
     labels:
       severity: {{ dig "NodeInMaintenance" "severity" "none" .Values.prometheusRules }}
