@@ -26,6 +26,7 @@ groups:
     labels:
       severity: {{ dig "KubeletDown" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletDown.md
+      inhibited_by: node-maintenance
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` is DOWN.

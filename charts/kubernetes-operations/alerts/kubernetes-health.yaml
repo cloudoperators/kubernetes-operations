@@ -34,6 +34,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesNodeNotReady" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeNotReady.md
+      inhibited_by: node-maintenance
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       summary: Node status is NotReady.
