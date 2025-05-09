@@ -22,7 +22,7 @@ prometheusRules:
   # -- Labels for PrometheusRules
   labels: {}
 
-  #-- Annotations for PrometheusRules
+  # -- Annotations for PrometheusRules
   annotations: {}
 
   # -- Additional labels for PrometheusRule alerts

@@ -42,7 +42,7 @@ The content of the repository can be installed independently or as part of the [
 | prometheusRules.NodeInMaintenance | object | `{"label":"maintenance_state","value":"in-maintenance"}` | The label value pair that marks a Kubernetes node as 'in maintenance' |
 | prometheusRules.additionalRuleAnnotations | object | `{}` | Additional annotations for PrometheusRule alerts |
 | prometheusRules.additionalRuleLabels | string | `nil` | Additional labels for PrometheusRule alerts # This is useful for adding additional labels such as "support_group" or "service" for the routing of alerts to each rule |
-| prometheusRules.annotations | object | `{}` |  |
+| prometheusRules.annotations | object | `{}` | Annotations for PrometheusRules |
 | prometheusRules.create | bool | `true` | Enables PrometheusRule resources to be created |
 | prometheusRules.disabled | object | `{}` | Disabled PrometheusRule alerts |
 | prometheusRules.labels | object | `{}` | Labels for PrometheusRules |
