@@ -43,5 +43,6 @@ helm-docs:
 		chmod +x $(LOCALBIN)/helm-docs; \
 	fi
 
-	@# Run helm-docs
-	@$(LOCALBIN)/helm-docs -c charts/kubernetes-operations
+.PHONY: generate-readme
+generate-readme: helm-docs
+	@$(LOCALBIN)/helm-docs -c charts/kubernetes-operations -o ../../README.md -t ../../README.md.gotmpl
