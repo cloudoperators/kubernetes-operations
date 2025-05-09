@@ -38,6 +38,5 @@ jobs:
       - name: Fail if README.md is outdated
         if: steps.generate-readme.outputs.outdated == 'true'
         run: |
-          echo "README.md is outdated. Please run the following command and update the PR:"
-          echo "make generate-readme"
+          echo "::error file=charts/kubernetes-operations/README.md::README.md is outdated. Please run 'make generate-readme' and update the PR."
           exit 1
