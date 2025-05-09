@@ -34,21 +34,19 @@ The content of the repository can be installed independently or as part of the [
 
 ## Values
 
-| Key                                       | Type   | Default               | Description |
-| ----------------------------------------- | ------ | --------------------- | ----------- |
-| dashboards.create                         | bool   | `true`                |             |
-| dashboards.plutonoSelectors[0].name       | string | `"plutono-dashboard"` |             |
-| dashboards.plutonoSelectors[0].value      | string | `"\"true\""`          |             |
-| global.commonLabels                       | object | `{}`                  |             |
-| prometheusRules.NodeInMaintenance.label   | string | `"maintenance_state"` |             |
-| prometheusRules.NodeInMaintenance.value   | string | `"in-maintenance"`    |             |
-| prometheusRules.additionalRuleAnnotations | object | `{}`                  |             |
-| prometheusRules.additionalRuleLabels      | string | `nil`                 |             |
-| prometheusRules.annotations               | object | `{}`                  |             |
-| prometheusRules.create                    | bool   | `true`                |             |
-| prometheusRules.disabled                  | object | `{}`                  |             |
-| prometheusRules.labels                    | object | `{}`                  |             |
-| prometheusRules.ruleSelectors             | string | `nil`                 |             |
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| dashboards.create | bool | `true` | Enables ConfigMap resources with dashboards to be created |
+| dashboards.plutonoSelectors | list | `[{"name":"plutono-dashboard","value":"\"true\""}]` | Label selectors for the Plutono dashboards to be picked up by Plutono. |
+| global.commonLabels | object | `{}` | Common labels to add to all resources # |
+| prometheusRules.NodeInMaintenance | object | `{"label":"maintenance_state","value":"in-maintenance"}` | The label value pair that marks a Kubernetes node as 'in maintenance' |
+| prometheusRules.additionalRuleAnnotations | object | `{}` | Additional annotations for PrometheusRule alerts |
+| prometheusRules.additionalRuleLabels | string | `nil` | Additional labels for PrometheusRule alerts # This is useful for adding additional labels such as "support_group" or "service" for the routing of alerts to each rule |
+| prometheusRules.annotations | object | `{}` |  |
+| prometheusRules.create | bool | `true` | Enables PrometheusRule resources to be created |
+| prometheusRules.disabled | object | `{}` | Disabled PrometheusRule alerts |
+| prometheusRules.labels | object | `{}` | Labels for PrometheusRules |
+| prometheusRules.ruleSelectors | string | `nil` | Label selectors for the Prometheus rules to be picked up by Prometheus. |
 
 ## Support, Feedback, Contributing
 
