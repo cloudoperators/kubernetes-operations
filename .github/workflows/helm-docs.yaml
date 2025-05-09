@@ -35,8 +35,11 @@ jobs:
             echo "outdated=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Fail if README.md is outdated
+      - name: Display README.md error
         if: steps.generate-readme.outputs.outdated == 'true'
         run: |
           echo "::error file=charts/kubernetes-operations/README.md::README.md is outdated. Please run 'make generate-readme' and update the PR."
-          exit 1
+
+      - name: Fail if README is outdated
+        if: steps.generate-readme.outputs.outdated == 'true'
+        run: exit 1
