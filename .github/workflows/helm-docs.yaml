@@ -27,7 +27,7 @@ jobs:
           echo "Generating README.md for charts/kubernetes-operations..."
           make generate-readme
 
-          if git diff --quiet -- charts/kubernetes-operations/README.md; then
+          if git diff --quiet -- README.md; then
             echo "README.md is already up-to-date."
             echo "outdated=false" >> "$GITHUB_OUTPUT"
           else
