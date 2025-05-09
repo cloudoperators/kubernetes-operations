@@ -5,7 +5,7 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 UNAME_P := $(shell uname -p)
 ARCH :=
 ifeq ($(UNAME_P),x86_64)
-	ARCH =amd64
+	ARCH = amd64
 endif
 ifneq ($(filter arm%,$(UNAME_P)),)
 	ARCH = arm64
@@ -22,14 +22,9 @@ HELM_DOCS_REPO ?= https://github.com/norwoodj/helm-docs/releases/download/v$(HEL
 
 
 ## Download `helm-docs` locally if necessary
-# Improved helm-docs target with better readability and maintainability
 .PHONY: helm-docs
-helm-docs:
-	@# Ensure the local bin directory exists
-	@mkdir -p $(LOCALBIN)
-
-	@# Check if helm-docs exists and matches the expected version
-	@if [ -x "$(LOCALBIN)/helm-docs" ] && ! $(LOCALBIN)/helm-docs -v | grep -q $(HELM_DOCS_VERSION); then \
+helm-docs: $(LOCALBIN)
+	@if test -x $(LOCALBIN)/helm-docs && ! $(LOCALBIN)/helm-docs -v | grep -q $(HELM_DOCS_VERSION); then \
 		echo "$(LOCALBIN)/helm-docs -v is not expected $(HELM_DOCS_VERSION). Removing it before installing."; \
 		rm -f $(LOCALBIN)/helm-docs; \
 	fi
