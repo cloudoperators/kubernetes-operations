@@ -6,7 +6,7 @@ global:
   ##
   commonLabels: {}
 
-## default rules for monitoring the cluster
+## -- default rules for monitoring the cluster
 ##
 prometheusRules:
   # -- Enables PrometheusRule resources to be created
@@ -48,10 +48,9 @@ prometheusRules:
 ##
 dashboards:
   # -- Enables ConfigMap resources with dashboards to be created
-  create:
-    true
+  create: true
 
-    # -- Label selectors for the Plutono dashboards to be picked up by Plutono.
+  # -- Label selectors for the Plutono dashboards to be picked up by Plutono.
   plutonoSelectors:
     - name: plutono-dashboard
       value: '"true"'
