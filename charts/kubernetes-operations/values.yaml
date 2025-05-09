@@ -19,7 +19,7 @@ prometheusRules:
     # - name: prometheus
     #   value: kubernetes
 
-  # -- Labels for PrometheusRules
+  # -- Labels for PrometheusRules. test
   labels: {}
 
   #-- Annotations for PrometheusRules
