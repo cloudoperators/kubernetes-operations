@@ -34,3 +34,7 @@ helm-docs: $(LOCALBIN)
 .PHONY: generate-readme
 generate-readme: helm-docs
 	@$(LOCALBIN)/helm-docs -c charts/kubernetes-operations -o ../../README.md -t ../../README.md.gotmpl
+
+.PHONY: lint
+lint:
+	ct lint --config .github/configs/helm-lint.yaml
