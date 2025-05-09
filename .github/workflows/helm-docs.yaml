@@ -35,7 +35,7 @@ jobs:
             echo "outdated=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Display README.md error
+      - name: Helm-Docs Check
         if: steps.generate-readme.outputs.outdated == 'true'
         run: |
           echo "::error file=README.md::README.md is outdated. Please run 'make generate-readme' and update the PR."
