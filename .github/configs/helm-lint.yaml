@@ -4,7 +4,7 @@
 # See https://github.com/helm/chart-testing#configuration
 remote: origin
 target-branch: main
-validate-maintainers: false
-check-version-increment: false
+validate-maintainers: true
+check-version-increment: true
 chart-dirs:
   - charts
