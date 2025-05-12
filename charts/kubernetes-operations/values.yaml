@@ -54,3 +54,8 @@ dashboards:
   plutonoSelectors:
     - name: plutono-dashboard
       value: '"true"'
+
+  # -- Label selectors for the Perses dashboards to be picked up by Perses.
+  persesSelectors:
+    - name: perses.dev/resource
+      value: '"true"'
