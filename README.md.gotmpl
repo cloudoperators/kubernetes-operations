@@ -14,7 +14,7 @@ The content is structured as follows:
 kubernetes-operations
     │
     ├── playbooks/              Step-by-step instructions for troubleshooting.
-    │                           
+    │                            
     └── charts/
          │
          └── kubernetes-operations
@@ -32,21 +32,7 @@ kubernetes-operations
 
 The content of the repository can be installed independently or as part of the [greenhouse-extensions](https://github.com/cloudoperators/greenhouse-extensions/tree/main/kube-monitoring).
 
-## Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| dashboards.create | bool | `true` | Enables ConfigMap resources with dashboards to be created |
-| dashboards.plutonoSelectors | list | `[{"name":"plutono-dashboard","value":"\"true\""}]` | Label selectors for the Plutono dashboards to be picked up by Plutono. |
-| global.commonLabels | object | `{}` | Common labels to add to all resources # |
-| prometheusRules.NodeInMaintenance | object | `{"label":"maintenance_state","value":"in-maintenance"}` | The label value pair that marks a Kubernetes node as 'in maintenance' |
-| prometheusRules.additionalRuleAnnotations | object | `{}` | Additional annotations for PrometheusRule alerts |
-| prometheusRules.additionalRuleLabels | string | `nil` | Additional labels for PrometheusRule alerts # This is useful for adding additional labels such as "support_group" or "service" for the routing of alerts to each rule |
-| prometheusRules.annotations | object | `{}` | Annotations for PrometheusRules |
-| prometheusRules.create | bool | `true` | Enables PrometheusRule resources to be created |
-| prometheusRules.disabled | object | `{}` | Disabled PrometheusRule alerts |
-| prometheusRules.labels | object | `{}` | Labels for PrometheusRules |
-| prometheusRules.ruleSelectors | string | `nil` | Label selectors for the Prometheus rules to be picked up by Prometheus. |
+{{ template "chart.valuesSection" . }}
 
 ## Support, Feedback, Contributing
 
@@ -65,6 +51,6 @@ Copyright 2024 SAP SE or an SAP affiliate company and k8s-monitoring contributor
 
 # Contributing
 
-If you are contributing to the `kubernetes-operations` chart, update the associated content and increment the version in the `Chart.yaml`. 
+If you are contributing to the `kubernetes-operations` chart, update the associated content and increment the version in the `Chart.yaml`.  
 
 If you use this chart with the [kube-monitoring](https://github.com/cloudoperators/greenhouse-extensions/tree/main/kube-monitoring) Plugin from [Greenhouse](https://github.com/cloudoperators/greenhouse), update the version in the [Chart.yaml](https://github.com/cloudoperators/greenhouse-extensions/blob/main/kube-monitoring/charts/Chart.yaml) as well as the [plugindefinition](https://github.com/cloudoperators/greenhouse-extensions/blob/main/kube-monitoring/plugindefinition.yaml) versions of `kube-monitoring` so that the operations platform can perform the rollout.

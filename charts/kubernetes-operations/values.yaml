@@ -2,45 +2,44 @@
 # SPDX-License-Identifier: Apache-2.0
 
 global:
-  ## Common labels to add to all resources
+  # -- Common labels to add to all resources
   ##
   commonLabels: {}
 
-## C default rules for monitoring the cluster
+## -- default rules for monitoring the cluster
 ##
 prometheusRules:
-
-  ## Enables PrometheusRule resources to be created
+  # -- Enables PrometheusRule resources to be created
   create: true
 
-  ## Label selectors for the Prometheus rules to be picked up by Prometheus.
+  # -- Label selectors for the Prometheus rules to be picked up by Prometheus.
   ruleSelectors:
     # - name: plugin
     #   value: kube-monitoring
     # - name: prometheus
     #   value: kubernetes
 
-  ## Labels for PrometheusRules
+  # -- Labels for PrometheusRules
   labels: {}
 
-  ## Annotations for PrometheusRules
+  # -- Annotations for PrometheusRules
   annotations: {}
 
-  ## Additional labels for PrometheusRule alerts
+  # -- Additional labels for PrometheusRule alerts
   ## This is useful for adding additional labels such as "support_group" or "service" for the routing of alerts to each rule
   additionalRuleLabels:
     # support_group: support
     # service: my-service
 
-  ## Additional annotations for PrometheusRule alerts
+  # -- Additional annotations for PrometheusRule alerts
   additionalRuleAnnotations: {}
 
-  ## Disabled PrometheusRule alerts
+  # -- Disabled PrometheusRule alerts
   disabled: {}
   # KubernetesApiServerDown: true
   # KubeletDown: true
 
-  ## The label value pair that marks a Kubernetes node as 'in maintenance'
+  # -- The label value pair that marks a Kubernetes node as 'in maintenance'
   NodeInMaintenance:
     label: maintenance_state
     value: in-maintenance
@@ -48,11 +47,10 @@ prometheusRules:
 ## Create default dashboards for monitoring the cluster
 ##
 dashboards:
-
-  ## Enables ConfigMap resources with dashboards to be created
+  # -- Enables ConfigMap resources with dashboards to be created
   create: true
 
-  ## Label selectors for the Plutono dashboards to be picked up by Plutono.
+  # -- Label selectors for the Plutono dashboards to be picked up by Plutono.
   plutonoSelectors:
     - name: plutono-dashboard
       value: '"true"'

@@ -33,6 +33,7 @@ header:
     - '**/*.txt'
     - '*Dockerfile*'
     - 'Makefile'
+    - 'README.md.gotmpl'
     - 'pkg/idproxy/web/**'
     - 'pkg/apis/scheme_builder.go' # Belongs to the Kubernetes authors
     - 'cmd/tcp-proxy/main.go' # MIT License
