@@ -4,7 +4,7 @@
 
 ## About this project
 
-A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
+A set of Plutono and Perses dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
 
 # Content
 
@@ -25,6 +25,8 @@ kubernetes-operations
               │
               ├── dashboards         Plutono dashboards for visualizing key metrics.
               │
+              ├── perses-dashboards  Perses dashboards for visualizing key metrics.
+              │
               └── Chart.yaml         Helm chart manifest.
 ```
 
@@ -37,6 +39,7 @@ The content of the repository can be installed independently or as part of the [
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | dashboards.create | bool | `true` | Enables ConfigMap resources with dashboards to be created |
+| dashboards.persesSelectors | list | `[{"name":"perses.dev/resource","value":"\"true\""}]` | Label selectors for the Perses dashboards to be picked up by Perses. |
 | dashboards.plutonoSelectors | list | `[{"name":"plutono-dashboard","value":"\"true\""}]` | Label selectors for the Plutono dashboards to be picked up by Plutono. |
 | global.commonLabels | object | `{}` | Common labels to add to all resources # |
 | prometheusRules.NodeInMaintenance | object | `{"label":"maintenance_state","value":"in-maintenance"}` | The label value pair that marks a Kubernetes node as 'in maintenance' |
