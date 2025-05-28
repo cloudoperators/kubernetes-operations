@@ -91,9 +91,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "Makefile$",
-        "\\.sh$"
+      "managerFilePatterns": [
+        "/Makefile$/",
+        "/\\.sh$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s.+?_(VERSION|version) *[?:]?= *\"?(?<currentValue>.+?)\"?\\s"
