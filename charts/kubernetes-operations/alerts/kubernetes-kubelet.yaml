@@ -77,32 +77,6 @@ groups:
       summary: Kubelet is full.
 {{- end }}
 
-{{ if not (.Values.prometheusRules.disabled.KubeletHighNumberOfGoRoutines | default false) }}
-  - alert: KubeletHighNumberOfGoRoutines
-    expr: go_goroutines{job=~".*kubelet"} > {{ dig "KubeletHighNumberOfGoRoutines" "threshold" "5000" .Values.prometheusRules }}
-    for: {{ dig "KubeletHighNumberOfGoRoutines" "for" "5m" .Values.prometheusRules }}
-    labels:
-      severity: {{ dig "KubeletHighNumberOfGoRoutines" "severity" "warning" .Values.prometheusRules }}
-      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutines.md
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
-    annotations:
-      description: Kublet on `{{`{{ $labels.node }}`}}` might be unresponsive due to a high number of Go routines.
-      summary: High number of Go routines.
-{{- end }}
-
-{{ if not (.Values.prometheusRules.disabled.KubeletHighNumberOfGoRoutinesPredicted | default false) }}
-  - alert: KubeletHighNumberOfGoRoutinesPredicted
-    expr: abs(predict_linear(go_goroutines{job=~".*kubelet"}[1h], 2*3600)) > {{ dig "KubeletHighNumberOfGoRoutines" "threshold" "10000" .Values.prometheusRules }}
-    for: {{ dig "KubeletHighNumberOfGoRoutinesPredicted" "for" "5m" .Values.prometheusRules }}
-    labels:
-      severity: {{ dig "KubeletHighNumberOfGoRoutinesPredicted" "severity" "warning" .Values.prometheusRules }}
-      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletHighNumberOfGoRoutinesPredicted.md
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
-    annotations:
-      description: Kublet on `{{`{{$labels.node}}`}}` might become unresponsive due to a high number of go routines within 2 hours.
-      summary: Predicting high number of Go routines.
-{{- end }}
-
 {{ if not (.Values.prometheusRules.disabled.KubeletManyRequestErrors | default false) }}
   - alert: KubeletManyRequestErrors
     expr: |
