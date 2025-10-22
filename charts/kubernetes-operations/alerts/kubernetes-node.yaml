@@ -80,14 +80,14 @@ groups:
 
 {{- if not (.Values.prometheusRules.disabled.KubernetesNodeNetworkUnavailable | default false) }}
   - alert: KubernetesNodeHighNumberOfOpenConnections
-    expr: node_netstat_Tcp_CurrEstab > 20000
+    expr: node_netstat_Tcp_CurrEstab > 25000
     for: {{ dig "KubernetesNodeHighNumberOfOpenConnections" "for" "15m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubernetesNodeHighNumberOfOpenConnections" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHighNumberOfOpenConnections.md
       {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
-      description: The node `{{`{{ $labels.node }}`}}` has more than 20000 active TCP connections. The maximum possible number is 32768 connections.
+      description: The node `{{`{{ $labels.node }}`}}` has more than 25000 active TCP connections. The maximum possible number is 32768 connections.
       summary: High number of open TCP connections on node.
 {{- end }}
 
