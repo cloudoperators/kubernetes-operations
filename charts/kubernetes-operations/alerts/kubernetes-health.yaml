@@ -121,9 +121,7 @@ groups:
        (max by (namespace, pod, node, phase) (kube_pod_status_ready{condition="false"}) 
          * on(pod) group_left(node) max by (node, pod) (kube_pod_info))
            * on(node) group_left()
-        kube_node_status_condition{condition="Ready",status="true"}
-           ==
-         1
+        kube_node_status_condition{condition="Ready",status="true"}==1
       )
     for: {{ dig "KubePodNotReady" "for" "30m" .Values.prometheusRules }}
     labels:
