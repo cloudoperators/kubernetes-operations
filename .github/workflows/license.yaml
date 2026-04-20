@@ -4,38 +4,22 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  apply-license-header:
-      name: Apply LicenceHeader
-      runs-on: [ ubuntu-latest ]
-      permissions:
-        contents: write
+  license:
+    name: Apply Licence Header
+    runs-on: [ ubuntu-latest ]
+    permissions:
+      contents: write
 
-      steps:
-      - name: Generate GitHub App Token
-        id: github-app-token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
-        with:
-          app-id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
-          private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
-          permission-contents: write
+    steps:
+    - name: Generate GitHub App Token
+      id: github-app-token
+      uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
+      with:
+        app-id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
+        private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
+        permission-contents: write
 
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with: 
-          token: ${{ steps.github-app-token.outputs.token }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Check License Header
-        uses: apache/skywalking-eyes/header@5c5b974209f0de5d905f37deb69369068ebfc15c # v0.7.0
-        with:
-            config: .github/licenserc.yaml
-            mode: fix
-
-      - name: Apply Changes
-        uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
-        with:
-            author_name: License Bot
-            author_email: license_bot@github.com
-            message: 'Automatic application of license header'
-            github_token: ${{ steps.github-app-token.outputs.token }}
+    - name: Check & Fix License Header
+      uses: cloudoperators/common/.github/workflows/shared-license.yaml@c12810ffe8dfb7f4f907959e9e85632d5ed5469e # main
+      with:
+        pas: ${{ steps.github-app-token.outputs.token }}
