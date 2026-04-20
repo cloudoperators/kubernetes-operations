@@ -23,6 +23,6 @@ jobs:
     needs: generate-token
     permissions:
       contents: write
-    uses: cloudoperators/common/.github/workflows/shared-license.yaml@main
+    uses: trouaux/common/.github/workflows/shared-license.yaml@deb5bb4aacf0be7aa1e4f18a09c717466b07b55d
     with:
       pas: ${{ needs.generate-token.outputs.token }}
