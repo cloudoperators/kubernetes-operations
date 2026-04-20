@@ -17,6 +17,17 @@ jobs:
           app-id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
           private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
           permission-contents: write
+      
+      - name: Verify token was generated
+        run: |
+          if [ -z "${{ steps.github-app-token.outputs.token }}" ]; then
+            echo "ERROR: Token output is empty!"
+            exit 1
+          else
+            echo "Token generated successfully (length: ${#TOKEN})"
+          fi
+        env:
+          TOKEN: ${{ steps.github-app-token.outputs.token }}
 
   license:
     name: Apply Licence Header
