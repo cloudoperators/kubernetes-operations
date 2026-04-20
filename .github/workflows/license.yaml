@@ -4,36 +4,11 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  generate-token:
-    name: Generate GitHub App Token
-    runs-on: [ ubuntu-latest ]
-    outputs:
-      token: ${{ steps.github-app-token.outputs.token }}
-    steps:
-      - name: Generate GitHub App Token
-        id: github-app-token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
-        with:
-          app-id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
-          private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
-          permission-contents: write
-      
-      - name: Verify token was generated
-        run: |
-          if [ -z "${{ steps.github-app-token.outputs.token }}" ]; then
-            echo "ERROR: Token output is empty!"
-            exit 1
-          else
-            echo "Token generated successfully (length: ${#TOKEN})"
-          fi
-        env:
-          TOKEN: ${{ steps.github-app-token.outputs.token }}
-
   license:
     name: Apply Licence Header
-    needs: generate-token
     permissions:
       contents: write
-    uses: trouaux/common/.github/workflows/shared-license.yaml@deb5bb4aacf0be7aa1e4f18a09c717466b07b55d
-    with:
-      pas: ${{ needs.generate-token.outputs.token }}
+    uses: trouaux/common/.github/workflows/shared-license.yaml@license-pas
+    secrets:
+      app_id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
+      private_key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
