@@ -4,12 +4,13 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  generate-token:
-    name: Generate GitHub App Token
-    runs-on: [ ubuntu-latest ]
-    outputs:
-      token: ${{ steps.github-app-token.outputs.token }}
-    steps:
+  apply-license-header:
+      name: Apply LicenceHeader
+      runs-on: [ ubuntu-latest ]
+      permissions:
+        contents: write
+
+      steps:
       - name: Generate GitHub App Token
         id: github-app-token
         uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
@@ -18,18 +19,10 @@ jobs:
           private-key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
           permission-contents: write
 
-  apply-license-header:
-      name: Apply LicenceHeader
-      runs-on: [ ubuntu-latest ]
-      needs: generate-token
-      permissions:
-        contents: write
-
-      steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with: 
-          token: ${{ needs.generate-token.outputs.token }}
+          token: ${{ steps.github-app-token.outputs.token }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
 
@@ -45,3 +38,4 @@ jobs:
             author_name: License Bot
             author_email: license_bot@github.com
             message: 'Automatic application of license header'
+            github_token: ${{ steps.github-app-token.outputs.token }}
