@@ -8,7 +8,7 @@ jobs:
     name: Apply Licence Header
     permissions:
       contents: write
-    uses: trouaux/common/.github/workflows/shared-license.yaml@license-pas
+    uses: cloudoperators/common/.github/workflows/shared-license.yaml@main
     secrets:
       app_id: ${{ secrets.CLOUDOPERATOR_APP_ID }}
       private_key: ${{ secrets.CLOUDOPERATOR_APP_PRIVATE_KEY }}
