@@ -88,7 +88,7 @@ groups:
       sum by (node) (
         rate(rest_client_requests_total{job="kubelet"}[5m])
         )
-      ) * 100> 1
+      ) > 0.01
     for: {{ dig "KubeletManyRequestErrors" "for" "5m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletManyRequestErrors" "severity" "warning" .Values.prometheusRules }}
