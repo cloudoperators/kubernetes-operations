@@ -10,7 +10,7 @@ groups:
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHostHighCPUUsage.md
 {{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
-      description: Node `{{`{{ $labels.node }}`}}`has more than `{{`{{ $value | humanizePercentage }}`}}` CPU load for {{ dig "NodeHostHighCPUUsage" "for" "6h" .Values.prometheusRules }}
+      description: Node `{{`{{ $labels.node }}`}}`has more than `{{`{{ $value | humanizePercentage }}`}}` CPU load for {{ dig "KubernetesNodeHostHighCPUUsage" "for" "6h" .Values.prometheusRules }}
       summary: High CPU load on node.
 {{- end }}
 
@@ -100,7 +100,7 @@ groups:
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHighRiseOfOpenConnections.md
 {{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
-      description: The node `{{`{{ $labels.node }}`}}` will probably reach 32768 active TCP connections within the next hour.If this happens, it will no longer be able to accept new connections.
+      description: The node `{{`{{ $labels.node }}`}}` will probably reach 32768 active TCP connections within the next hour. If this happens, it will no longer be able to accept new connections.
       summary: High number of open TCP connections on node.
 {{- end }}
 

@@ -119,7 +119,7 @@ groups:
     for: {{ dig "KubePodNotReady" "for" "30m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubePodNotReady" "severity" "warning" .Values.prometheusRules }}
-      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubePodNotReady.md 
+      playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubePodNotReady.md
 {{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Pod `{{`{{ $labels.namespace }}/{{ $labels.pod }}`}}` has been in a non-ready state for longer than {{ dig "KubePodNotReady" "for" "30m" .Values.prometheusRules }} minutes.

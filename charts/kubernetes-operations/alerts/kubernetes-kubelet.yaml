@@ -29,7 +29,7 @@ groups:
       inhibited_by: node-maintenance
 {{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
-      description: Kublet on `{{`{{ $labels.node }}`}}` is DOWN.
+      description: Kubelet on `{{`{{ $labels.node }}`}}` is DOWN.
       summary: A Kubelet is DOWN.
 {{- end }}
 
