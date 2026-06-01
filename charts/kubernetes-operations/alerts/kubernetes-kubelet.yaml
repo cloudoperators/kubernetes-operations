@@ -13,7 +13,7 @@ groups:
     labels:
       severity: {{ dig "KubernetesManyKubeletsDown" "severity" "critical" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesManyKubeletsDown.md
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
+{{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Many Kubelets are DOWN.
       summary: More than 4 Kubelets are DOWN.
@@ -27,7 +27,7 @@ groups:
       severity: {{ dig "KubeletDown" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletDown.md
       inhibited_by: node-maintenance
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
+{{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kublet on `{{`{{ $labels.node }}`}}` is DOWN.
       summary: A Kubelet is DOWN.
@@ -49,7 +49,7 @@ groups:
     labels:
       severity: {{ dig "KubeletTooManyPods" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletTooManyPods.md
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
+{{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubelet `{{`{{ $labels.node }}`}}` is running at `{{`{{ $value | humanizePercentage }}`}}` of its Pod capacity.
       summary: Kubelet is running at capacity.
@@ -71,7 +71,7 @@ groups:
     labels:
       severity: {{ dig "KubeletFull" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletFull.md
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
+{{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Kubelet is full, no more pods can be scheduled on `{{`{{ $labels.node }}`}}`.
       summary: Kubelet is full.
@@ -88,12 +88,12 @@ groups:
       sum by (node) (
         rate(rest_client_requests_total{job="kubelet"}[5m])
         )
-      ) * 100> 1
+      ) > 0.01
     for: {{ dig "KubeletManyRequestErrors" "for" "5m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubeletManyRequestErrors" "severity" "warning" .Values.prometheusRules }}
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubeletManyRequestErrors.md
-      {{ include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
+{{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: "`{{`{{ $value | humanizePercentage }}`}}` of requests from kubelet on `{{`{{ $labels.node }}`}}` are erroneous."
       summary: Many HTTP 5xx responses for Kubelet requests.
