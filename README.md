@@ -4,7 +4,7 @@
 
 ## About this project
 
-A set of Plutono and Perses dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
+A set of Perses dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
 
 # Content
 
@@ -22,8 +22,6 @@ kubernetes-operations
               ├── aggregations       Prometheus aggregation rules for kubernetes.
               │
               ├── alerts             Prometheus alerts for kubernetes.
-              │
-              ├── dashboards         Plutono dashboards for visualizing key metrics.
               │
               ├── perses-dashboards  Perses dashboards for visualizing key metrics.
               │
