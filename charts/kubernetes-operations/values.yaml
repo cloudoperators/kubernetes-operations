@@ -39,6 +39,15 @@ prometheusRules:
   # KubernetesApiServerDown: true
   # KubeletDown: true
 
+  # -- Enrich pod- and deployment-level alert expressions with labels from kube_pod_labels / kube_deployment_labels.
+  # Provide a list of kube-state-metrics label names to include in group_left().
+  # Affects: KubernetesPodRestartingTooMuch, KubePodNotReady (join on pod+namespace),
+  #          KubernetesDeploymentReplicasMismatch (join on namespace+deployment).
+  kubeLabels: []
+  # - label_app
+  # - label_team
+  # - label_environment
+
   # -- The label value pair that marks a Kubernetes node as 'in maintenance'
   NodeInMaintenance:
     label: maintenance_state
@@ -49,11 +58,6 @@ prometheusRules:
 dashboards:
   # -- Enables ConfigMap resources with dashboards to be created
   create: true
-
-  # -- Label selectors for the Plutono dashboards to be picked up by Plutono.
-  plutonoSelectors:
-    - name: plutono-dashboard
-      value: '"true"'
 
   # -- Label selectors for the Perses dashboards to be picked up by Perses.
   persesSelectors:

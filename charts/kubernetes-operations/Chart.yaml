@@ -3,15 +3,14 @@
 
 apiVersion: v2
 name: kubernetes-operations
-version: 1.2.11
-description: A set of Plutono dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
+version: 1.3.0
+description: A set of Perses dashboards and Prometheus alerting rules combined with playbooks to ensure effective operations of Kubernetes.
 maintainers:
   - name: richardtief
-    email: richard.tief@sap.com
+  - name: trouaux
 keywords:
   - Helm Chart
   - Kubernetes operations
-  - Plutono Dashboards
   - Perses Dashboards
   - Prometheus Alerting
   - Alert Rules
