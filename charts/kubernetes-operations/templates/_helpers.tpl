@@ -33,7 +33,6 @@ plugin: {{ $root.Release.Name }}
 Optionally append a kube_pod_labels join to pod-level alert expressions.
 Enriches alerts with configurable labels from kube_pod_labels.
 Enable via .Values.prometheusRules.kubeLabels (list of label names, e.g. [label_app, label_team, label_environment])
-Usage (inside an expr: | block at 6-space indent): {{- include "kubernetes-operations.kubePodLabelsJoin" . }}
 */}}
 {{- define "kubernetes-operations.kubePodLabelsJoin" -}}
 {{- if .Values.prometheusRules.kubeLabels }}
@@ -46,7 +45,6 @@ Usage (inside an expr: | block at 6-space indent): {{- include "kubernetes-opera
 Optionally append a kube_deployment_labels join to deployment-level alert expressions.
 Enriches alerts with configurable labels from kube_deployment_labels.
 Enable via .Values.prometheusRules.kubeLabels (list of label names, e.g. [label_app, label_team, label_environment])
-Usage (inside an expr: | block at 6-space indent): {{- include "kubernetes-operations.kubeDeploymentLabelsJoin" . }}
 */}}
 {{- define "kubernetes-operations.kubeDeploymentLabelsJoin" -}}
 {{- if .Values.prometheusRules.kubeLabels }}
