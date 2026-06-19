@@ -29,16 +29,29 @@ plugin: {{ $root.Release.Name }}
 {{- end }}
 {{- end }}
 
-{{- define "kubernetes-operations.dashboardSelectorLabels" }}
-{{- $path := index . 0 -}}
-{{- $root := index . 1 -}}
-plugin: {{ $root.Release.Name }}
-{{- if $root.Values.dashboards.plutonoSelectors }}
-{{- range $i, $target := $root.Values.dashboards.plutonoSelectors }}
-{{ $target.name | required (printf "$.Values.dashboards.plutonoSelectors.[%v].name missing" $i) }}: {{ tpl ($target.value | required (printf "$.Values.dashboards.plutonoSelectors.[%v].value missing" $i)) $ }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{/*
+Optionally append a kube_pod_labels join to pod-level alert expressions.
+Enriches alerts with configurable labels from kube_pod_labels.
+Enable via .Values.prometheusRules.kubeLabels (list of label names, e.g. [label_app, label_team, label_environment])
+*/}}
+{{- define "kubernetes-operations.kubePodLabelsJoin" -}}
+{{- if .Values.prometheusRules.kubeLabels }}
+      * on(pod, namespace) group_left({{ join ", " .Values.prometheusRules.kubeLabels }})
+        kube_pod_labels
+{{- end -}}
+{{- end -}}
+
+{{/*
+Optionally append a kube_deployment_labels join to deployment-level alert expressions.
+Enriches alerts with configurable labels from kube_deployment_labels.
+Enable via .Values.prometheusRules.kubeLabels (list of label names, e.g. [label_app, label_team, label_environment])
+*/}}
+{{- define "kubernetes-operations.kubeDeploymentLabelsJoin" -}}
+{{- if .Values.prometheusRules.kubeLabels }}
+      * on(namespace, deployment) group_left({{ join ", " .Values.prometheusRules.kubeLabels }})
+        kube_deployment_labels
+{{- end -}}
+{{- end -}}
 
 {{- define "kubernetes-operations.persesDashboardSelectorLabels" }}
 {{- $path := index . 0 -}}

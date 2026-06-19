@@ -56,7 +56,9 @@ groups:
 
 {{- if not (.Values.prometheusRules.disabled.KubernetesPodRestartingTooMuch | default false) }}
   - alert: KubernetesPodRestartingTooMuch
-    expr: sum by(pod, namespace, container) (rate(kube_pod_container_status_restarts_total[15m])) > 0
+    expr: |
+      sum by(pod, namespace, container) (rate(kube_pod_container_status_restarts_total[15m]))
+      {{- include "kubernetes-operations.kubePodLabelsJoin" . }} > 0
     for: {{ dig "KubernetesPodRestartingTooMuch" "for" "1h" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubernetesPodRestartingTooMuch" "severity" "warning" .Values.prometheusRules }}
@@ -93,6 +95,7 @@ groups:
           ==
         0
       )
+      {{- include "kubernetes-operations.kubeDeploymentLabelsJoin" . }}
     for: {{ dig "KubernetesDeploymentReplicasMismatch" "for" "10m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubernetesDeploymentReplicasMismatch" "severity" "warning" .Values.prometheusRules }}
@@ -116,6 +119,7 @@ groups:
            * on(node) group_left()
         kube_node_status_condition{condition="Ready",status="true"}==1
       )
+      {{- include "kubernetes-operations.kubePodLabelsJoin" . }}
     for: {{ dig "KubePodNotReady" "for" "30m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubePodNotReady" "severity" "warning" .Values.prometheusRules }}
