@@ -37,7 +37,3 @@ spec:
       required: false
       default: true
       type: bool
-    - name: dashboards.dashboardSelector
-      description: Selector for dashboards to be picked up by the Plutono. List of key-value pairs.
-      required: false
-      type: list
