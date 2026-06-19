@@ -57,8 +57,8 @@ groups:
 {{- if not (.Values.prometheusRules.disabled.KubernetesPodRestartingTooMuch | default false) }}
   - alert: KubernetesPodRestartingTooMuch
     expr: |
-      sum by(pod, namespace, container) (rate(kube_pod_container_status_restarts_total[15m])) > 0
-      {{- include "kubernetes-operations.kubePodLabelsJoin" . }}
+      sum by(pod, namespace, container) (rate(kube_pod_container_status_restarts_total[15m]))
+      {{- include "kubernetes-operations.kubePodLabelsJoin" . }} > 0
     for: {{ dig "KubernetesPodRestartingTooMuch" "for" "1h" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubernetesPodRestartingTooMuch" "severity" "warning" .Values.prometheusRules }}
