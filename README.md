@@ -40,7 +40,6 @@ The content of the repository can be installed independently or as part of the [
 |-----|------|---------|-------------|
 | dashboards.create | bool | `true` | Enables ConfigMap resources with dashboards to be created |
 | dashboards.persesSelectors | list | `[{"name":"perses.dev/resource","value":"\"true\""}]` | Label selectors for the Perses dashboards to be picked up by Perses. |
-| dashboards.plutonoSelectors | list | `[{"name":"plutono-dashboard","value":"\"true\""}]` | Label selectors for the Plutono dashboards to be picked up by Plutono. |
 | global.commonLabels | object | `{}` | Common labels to add to all resources # |
 | prometheusRules.NodeInMaintenance | object | `{"label":"maintenance_state","value":"in-maintenance"}` | The label value pair that marks a Kubernetes node as 'in maintenance' |
 | prometheusRules.additionalRuleAnnotations | object | `{}` | Additional annotations for PrometheusRule alerts |
@@ -48,6 +47,7 @@ The content of the repository can be installed independently or as part of the [
 | prometheusRules.annotations | object | `{}` | Annotations for PrometheusRules |
 | prometheusRules.create | bool | `true` | Enables PrometheusRule resources to be created |
 | prometheusRules.disabled | object | `{}` | Disabled PrometheusRule alerts |
+| prometheusRules.kubeLabels | list | `[]` | Enrich pod- and deployment-level alert expressions with labels from kube_pod_labels / kube_deployment_labels. Provide a list of kube-state-metrics label names to include in group_left(). Affects: KubernetesPodRestartingTooMuch, KubePodNotReady (join on pod+namespace),          KubernetesDeploymentReplicasMismatch (join on namespace+deployment). |
 | prometheusRules.labels | object | `{}` | Labels for PrometheusRules |
 | prometheusRules.ruleSelectors | string | `nil` | Label selectors for the Prometheus rules to be picked up by Prometheus. |
 
