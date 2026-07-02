@@ -10,7 +10,7 @@ groups:
       playbook: https://github.com/cloudoperators/kubernetes-operations/playbooks/KubernetesNodeHostHighCPUUsage.md
 {{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
-      description: Node `{{`{{ $labels.node }}`}}`has more than `{{`{{ $value | humanizePercentage }}`}}` CPU load for {{ dig "KubernetesNodeHostHighCPUUsage" "for" "6h" .Values.prometheusRules }}
+      description: Node `{{`{{ $labels.node }}`}}` has more than `{{`{{ $value | humanize }}`}}%` CPU load for {{ dig "KubernetesNodeHostHighCPUUsage" "for" "6h" .Values.prometheusRules }}
       summary: High CPU load on node.
 {{- end }}
 
@@ -75,7 +75,7 @@ groups:
 {{- include "kubernetes-operations.additionalRuleLabels" . | nindent 6 }}
     annotations:
       description: Node disk usage above 85%
-      summary: "Disk usage on `{{`{{ $labels.node }}`}}` at `{{`{{ $value | humanizePercentage }}`}}`"
+      summary: "Disk usage on `{{`{{ $labels.node }}`}}` at `{{`{{ $value | humanize }}`}}%`"
 {{- end }}
 
 {{- if not (.Values.prometheusRules.disabled.KubernetesNodeNetworkUnavailable | default false) }}
