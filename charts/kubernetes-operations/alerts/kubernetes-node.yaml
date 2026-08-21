@@ -131,7 +131,7 @@ groups:
 
 {{- if not (.Values.prometheusRules.disabled.KubernetesNodeReadOnlyRootFilesystem | default false) }}
   - alert: KubernetesNodeReadOnlyRootFilesystem
-    expr: sum by (node) (node_filesystem_readonly{mountpoint="/"}) > 0
+    expr: sum by (node) (node_filesystem_readonly{mountpoint="/", fstype!~"^(erofs|squashfs|iso9660)$"}) > 0
     for: {{ dig "KubernetesNodeReadOnlyRootFilesystem" "for" "15m" .Values.prometheusRules }}
     labels:
       severity: {{ dig "KubernetesNodeReadOnlyRootFilesystem" "severity" "warning" .Values.prometheusRules }}
